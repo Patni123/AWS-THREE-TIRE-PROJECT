@@ -656,6 +656,25 @@ sudo aws s3 cp s3://BUCKET_NAME/nginx.conf.
 
 
 
+- Step 10- Now let’s copy and plug in the public IP of our web tier instance to see our website. The public IP can be found on the App Tier Instance details page on the EC2 dashboard. Voila, the website is working correctly.
+
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/aa1bafee-6906-45fd-a868-04845fd83a93)
+
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/d6f9b772-2615-44ff-8bee-2f42c37d0d4e)
+
+Now add some entry 
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/bfe6facd-bded-4249-83ac-ed9cdbe501e7)
+
+- now check 
+
+
+
+
+
+
 
   
 
