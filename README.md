@@ -405,6 +405,132 @@ Received the following response after executing the command:
 ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/fc285e19-8f23-4716-999a-4155e4963ef2)
 
 
+# Step 8 : Internal Load Balancing and Auto Scaling
+
+In this section of the workshop, we will create an Amazon Machine Image (AMI) of the app tier instance we just created, and use that to set up autoscaling with a load balancer in order to make this tier highly available.
+
+Objectives:
+Create an AMI of our App Tier
+Create a Launch Template
+Configure Autoscaling
+Deploy Internal Load Balancer
+
+
+- App Tier AMI
+  Let’s navigate to Instances on the left-hand side of the EC2 dashboard. Select the app tier instance we created and under Actions select Image and Templates. Click Create Image.
+
+ ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/be949b2d-5abd-4f78-9069-bdeca0f1dcd0)
+
+
+Let’s give the image a name and description and then click Create image. This will take a few minutes, but if you want to monitor the status of image creation you can see it by clicking AMIs under Images on the left-hand navigation panel of the EC2 dashboard.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/cd4eb32e-e66d-4615-8120-bea9d96004dd)
+
+
+- Target Group
+While the AMI is being created, let’s go ahead and create our target group to use with the load balancer. On the EC2 dashboard, navigate to Target Groups under Load Balancing on the left-hand side. Click on Create Target Group.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/fa8c75da-6556-4905-aa93-73e2bdb30b33)
+
+
+The purpose of forming this target group is to use our load balancer so it may balance traffic across our private app tier instances. Let’s select Instances as the target type and give it a name.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/51dc6e6f-0da8-4acb-8228-53ca85c15c36)
+
+
+Let’s set the protocol to HTTP and the port to 4000. Remember that this is the port our Node.js app is running on. Select the VPC we’ve been using thus far, and then change the health check path to be /health to indicate the health check endpoint of our app and click Next.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/20c99fe3-c343-4697-bd52-da085b4a001a)
+
+
+
+We’ll NOT register any targets for now, so let’s just skip that step, click Next and create the target group.
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/a38b4d31-8a66-4386-9a4b-47a69ff2a3dd)
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/04920613-7733-4f3e-9f59-1fd622fd1162)
+
+
+# Internal Load Balancer
+
+We’re going to create an internal load balancer for our three-tier. On the left-hand side of the EC2 dashboard select Load Balancers under Load Balancing and click Create Load Balancer.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/99f25a10-1d44-46bf-a05a-c8031501aa53)
+
+
+We’ll be using an Application Load Balancer for our HTTP traffic, give it a name (App-Tier-Internal-lg), select Internal under Scheme, and click the create button for that option.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/c31a898d-09de-499f-96e7-c57f46843896)
+
+Let’s select the correct network configuration for our VPC and private subnets.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/eb19778d-7493-47b7-94df-65e847739dff)
+
+Next, select the security group we created for this internal ALB. Now, this ALB will be listening for HTTP traffic on port 80. It will be forwarding the traffic to our target group that we just created. Let’s select it from the dropdown list, and create the load balancer.
+
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/38373efd-150c-4f08-a63e-b4f4c80b571c)
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/f63ef996-90dd-46f9-a3a2-b7f9217d33d1)
+
+Internal Load Balancer is created with two availability zones.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/8b1ab7e4-dc16-4ea8-bbc3-c4a412ef6002)
+
+
+# Launch Template
+
+Now, we need to create a Launch template with the AMI we created earlier before we configure Auto Scaling. 
+Name the Launch Template, and then under Application and OS Images include the app tier AMI we previously created.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/9458348c-050d-43e0-b6f1-14917f57be83)
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/6c759267-72c0-4ea2-a9e2-cef1f8ce30f3)
+
+
+Under Instance Type select t2.micro. For Key pair and Network Settings don’t include it in the template. We don’t need a key pair to access our instances and we’ll be setting the network information in the autoscaling group.
+
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/026eacea-d059-4d78-847b-e0047a875944)
+
+Set the correct security group for our app tier, and then under Advanced details use the same IAM instance profile we have been using for our EC2 instances.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/9aa9c495-3673-4140-afbb-6f75eaf8043b)
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/b0d77613-712e-48b4-8fac-559c84a79ff0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
 
 
 
