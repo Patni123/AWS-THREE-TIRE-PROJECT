@@ -178,6 +178,153 @@ We’ll not make any changes under password authentication because password auth
 ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/394d2fc7-2b40-4266-84fc-1a3297b26da1)
 
 
+Step 7 :  App Tier Instance Deployment
+
+In this section, we are going to create an EC2 instance for our app layer and make all the essential software configurations so that the app can run correctly. The app layer will consist of a Node.js application running on port 4000. In addition, we will configure our database with some data and tables.
+
+Objectives:
+Create App Tier Instance
+Configure Software Stack
+Configure Database Schema
+Test DB connectivity
+
+- App Instance Deployment
+Using the EC2 service dashboard, click on Instances on the left-hand side and then Launch Instances to start the process.  Let’s name our app instance ‘appweb’ for the three-tier architecture and select the Amazon Linux 2 AMI for our application and operating system image.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/c17c265b-9e40-41ea-af20-42e704bd97d2)
+
+We’ll be using the free tier eligible T.2 micro instance type so let’s select that to proceed. Even though ‘Proceed without a key is (Not recommended)’, we’ll proceed without a key pair for architecture.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/f8b11cf0-3c2b-4c02-aac6-c7d6e3d28c7f)
+
+Earlier we created a security group for our private app layer instances, so go ahead and select that along with our default VPC and the ‘private-app-subnet-az-1' under Network settings.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/1b1f7905-5a01-4c8a-ae77-41277a47db54)
+
+We’ll keep the default configuration settings for Configure storage, and Advanced details as-is, but review the Summary, and click Launch instance to create the ‘appLayer’ instance.
+
+The ‘appLayer’ instance is created.
+
+Now, let’s navigate back to the Instance dashboard of the EC2, select the ‘appLayer’ instance, click on Actions, and then Modify IAM role under Security to update the IAM role.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/2b29e9f7-0982-40dd-9559-d1ec3e3ba67b)
+
+Select the IAM role we created earlier from the ‘IAM role’ list and click ‘Update IAM role’ to update the role.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/c32a6cc8-c436-4c84-a5dc-3409ee3680db)
+
+- Connect to Instance
+Let’s navigate to our list of running EC2 Instances by clicking on Instances on the left-hand side of the EC2 dashboard. When the instance state is running, connect to the instance by clicking the checkmark box to the left of the instance and clicking the connect button on the top right corner of the dashboard. Select the Session Manager tab, and click Connect. This will open a new browser tab for you.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/eace494d-2bc8-4627-8eb8-0caba083289e)
+
+When you first connect to your instance like this, you will be logged in as ssm-user which is the default user as indicated below.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/e9c1489a-7228-48c1-b872-3ac1e0c94ff5)
+
+Now, let’s switch to ec2-user using the below command in the same terminal:
+sudo -su ec2-user
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/817f7421-68db-4cde-8ac3-e44f2dbf9e85)
+
+
+Let’s take this moment to make sure that we are able to reach the internet via our NAT gateways. If our network is configured correctly up till this point, we should be able to ping the www.Google.com
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/454d1ae2-2c38-4cc8-93c3-310bfcacc368)
+
+You can stop the ping by pressing ctrl + c.
+
+- Configure Database
+
+  sudo yum install mysql -y
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/d71f060d-84bc-496c-9fa1-ddea43a0be51)
+
+
+- Now, let’s initiate our DB connection with our Aurora RDS writer endpoint. In the following command, replace the RDS writer endpoint and the username, and then execute it in the browser terminal:
+
+  mysql -h CHANGE-TO-YOUR-RDS-ENDPOINT -u CHANGE-TO-USER-NAME -p
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/ae297f0c-ff73-41cd-aee6-354279bc2260)
+
+
+  We successfully connected to the database
+
+
+  Now that we’ve successfully connected to MySQL database, let’s create a database called ‘webappdb’ with the following command using the MySQL CLI:
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/40504295-0290-441b-b49a-9d61c833a5b4)
+
+
+  Let’s verify that the database was created correctly with the following command:
+
+  SHOW DATABASES;
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/9db71d3a-5e51-42ce-b04d-ed56cdd8538b)
+
+  Now, let’s create a data table by first navigating to the database we just created with the command below:
+  USE webappdb;
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/3112c9c1-e8ca-451f-8861-5b0e8405fe01)
+
+
+Now that we’ve changed to the database (webappdb), let’s create the following transactions table by executing this create table command:
+
+CREATE TABLE IF NOT EXISTS transactions(id INT NOT NULL
+AUTO_INCREMENT, amount DECIMAL(10,2), description
+VARCHAR(100), PRIMARY KEY(id));
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/d038f465-51ca-4888-b2e2-dcd238970a88)
+
+
+Let’s verify if the tables were created with the below command:   SHOW TABLES;
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/cf18b8f7-3cd3-4280-b10b-f9e31aca6b0e)
+
+Now that we have the tables created, let’s insert data into the table with the command below for use/testing later:
+
+INSERT INTO transactions (amount,description) VALUES ('400','groceries');
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/e100014f-b223-4457-ab26-d7b8fbbfb632)
+
+
+Let’s verify that our data was added by executing the following command:
+
+SELECT * FROM transactions;
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/f71d8057-c29e-4252-ae1f-6da784fd37f4)
+
+
+To exit the MySQL client, just type exit and hit enter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
