@@ -119,7 +119,7 @@ Now Open Private_TABLE -1a and ADD Routes select Nat-getway- AZ-1a and Subnet As
  
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/a8b0d5a8-6fdb-48fa-be9d-0d9d0072750b)
  
-- The fourth security group we’ll For private-intance-sg add inbond rule type custom TCP and SOURCE Internal-load-balancer-sg, that allows all traffic from your Internal-load-balancer-sg security group and add another rule for only Custom TCP see below :
+- The fourth security group we’ll For private-intance-sg add inbond rule type custom TCP and SOURCE Internal-load-balancer-sg, that allows all traffic from your Internal-load-balancer-sg security group and add another rule for only Custom TCP port number 4000 see below :
    
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/36e84085-d94e-45e0-bceb-d671e975c826)
 
