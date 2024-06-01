@@ -104,7 +104,7 @@ Now Open Private_TABLE -1a and ADD Routes select Nat-getway- AZ-1a and Subnet As
 
 
 
-# Security Groups
+Step 5: Security Groups
 
 - Here the first security group we’ll create is for the public, internet-facing load balancer. After typing a name and description, let’s add an inbound rule to allow HTTP type traffic for our IP. See below!
 
@@ -127,7 +127,66 @@ Now Open Private_TABLE -1a and ADD Routes select Nat-getway- AZ-1a and Subnet As
  
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/c29b160b-9038-4b67-a1f3-26d43cb11c28)
 
-  
+
+  Step 6:  Database Deployment
+  This section of the workshop will walk us through deploying the database layer of the three-tier architecture.
+
+  Objectives:
+  Deploy Database Layer
+  Subnet Groups
+  Multi-AZ Database
+
+We are going to create database Subnet groups for the architecture. Navigate to the RDS dashboard in the AWS console, search for RDS, and click on Subnet groups on the left-hand side.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/f7658176-ff10-4f00-8dc1-3cfa2ae7612d)
+
+Now, we need to add the subnets previously created in each availability zone for the database tier (layer). To ensure consistency, let’s navigate back to the VPC dashboard to verify so that we can select the correct subnet IDs.
+
+Now that we’ve got the subnets IDs verified, let’s select the two subnets to add them and create the Subnet Group as indicated below
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/2052947d-9836-4a78-91c7-d885490ebb0b)
+
+# Database Deployment :
+Create database. We’re going to select MySQL/Aurora as our database choice. On the same RDS dashboard, navigate to Databases on the upper left-hand side 
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/689f8422-698e-46cf-8d85-cd11f1edb44d)
+
+Under the Templates section, select the Dev/Test since this isn’t being used for production at the moment. Under Settings Database cluster identifier, keep the default name database-1.
+We’ll keep the username as ‘admin, set a password to welcome-db’, and then write down the password on a notepad since we’ll be using password authentication to access our database.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/2c39027f-8460-47de-b686-6261a9093a4b)
+
+Under the Cluster storage configuration section, we’ll keep Aurora Standard and keep the default option under Instance Configuration
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/76de64a9-327f-465c-953c-c9738c4b72a7)
+
+Next, under Availability and Durability, we’ll keep the option to create an Aurora Replica or reader node in a different availability zone as recommended along with our VPC under Connectivity.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/69e2adbd-a3f4-4047-a0b0-373fd74f7109)
+
+
+We’ll also choose the subnet group we created earlier, and select no for public access.
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/8c6560ae-72a2-45cd-ad47-725c498311ef)
+
+Now, let’s set the security group we created for the database layer.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/f39448cd-475c-45ea-9214-19a4df58f240)
+
+We’ll not make any changes under password authentication because password authentication is always on. Click Create to create the database.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/01498c80-f710-411a-a61b-82f69992acd3)
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/394d2fc7-2b40-4266-84fc-1a3297b26da1)
+
+
+
+
+
+
+
+
+
+
+
 
     
 
