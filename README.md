@@ -297,6 +297,159 @@ SELECT * FROM transactions;
 To exit the MySQL client, just type exit and hit enter.
 
 
+# Configure App Instance :
+
+- Go to your S3 bucket (aws-three-tire)
+- Click on upload
+- In download section select AWS-thre-tier-main folder open
+- select app-tier and web-tire files
+- upload
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/667bc82a-8f24-435a-9521-800244f17414)
+
+- Now install aws cli
+- sudo yum install aws-cli
+- For check aws cli is working or not use command- aws s3 ls
+
+- Now Need to change DbConfig.js, go in  AWS-thre-tier-main folder open select app-tier open DbConfig.js file in visual studio and change as below screen shot and save 
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/999ced81-9bee-4a46-84f9-e4d624f54455)
+
+- Now again open s3 bucket and upload again DbConfig.js file in app-tier folder in s3. 
+
+- Now With the ‘app-tier’ folder and contents uploaded to the S3 bucket, let’s go back to our SSM session via our EC2 ‘appLayer’ instance to install all of the necessary components to run our backend application. Start by installing NVM (node version manager) using the command below:
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/91dd4f83-6761-4579-be30-33b5e28f1c65)
+
+
+source ~/.bashrc
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/18a6afdd-e8ee-4afb-bc51-33464e0efce8)
+
+- Next, let’s install a compatible version of Node.js and make sure it’s being used with the below commands:
+
+nvm install 16
+nvm use 16
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/93407c2f-0787-406c-af3e-003a4662a134)
+
+
+- PM2 is a daemon process manager that will keep our node.js app running when we exit the instance or if it is rebooted. Let’s install that as well.
+npm install -g pm2
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/12fd2cd0-20e1-4ef5-adfc-c39697513fe8)
+
+
+- Now, we need to download our code from our S3 buckets onto our instance. With the command below, let’s replace BUCKET_NAME with the name of the bucket we uploaded the app-tier folder to:
+  cd ~/
+  aws s3 cp s3://BUCKET_NAME/app-tier/ app-tier --recursive
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/2154295a-a9c4-4f57-b793-ee4b498f2247)
+
+
+  - Next, navigate to the app directory, install dependencies, and start the app with pm2 with the command below:
+cd ~/app-tier
+npm install
+pm2 start index.js
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/fef3f1c1-3533-4523-b86b-07b680803e40)
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/15262d52-92b0-4d8b-bc34-a574bd5aa803)
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/1feecd54-9b51-4348-8b22-a96ee4044126)
+
+
+- To make sure the app is running correctly run the following:  pm2 list
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/72caf301-575b-405b-8f73-5b426d24a5df)
+
+- The app is running. If you see an error, then you need to do some troubleshooting. To look at the latest errors, use this command:
+pm2 logs
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/0bb1aefe-053e-4fdc-ad0d-60a4dc68c5a0)
+
+You can also see that the AB3 backend app is listening at http://localhost:4000.
+
+- PM2 will make sure our app stays running when we leave the SSM session. However, if the server is interrupted for some reason, we still want the app to start and keep running. This is also important for the AMI we will create so let’s keep PM2 running by executing the command below:
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/c39e8782-2b7c-49fb-ba9d-711b89f30fd3)
+
+- The below message appears on the command prompt above after running the ‘pm2 startup’ command.
+
+- sudo env PATH=$PATH:/home/ec2-user/.nvm/versions/node/v16.0.0/bin /home/ec2-user/.nvm/versions/node/v16.0.0/lib/node_modules/pm2/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user
+
+  DO NOT run the above command, let’s copy and past the command in the output you see in your own terminal. After you run it, save the current list of node processes with the following command:
+
+   pm2 save
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/681a1d0a-6b8c-4c96-b8bf-2474a35bd67e)
+
+
+
+  # Test App Tier:
+Now let’s run a couple tests to see if our app is configured correctly and can retrieve data from the database.
+
+To check out our health check endpoint, copy this command into your SSM terminal. This is our simple health check endpoint that tells us if the app is simply running.
+
+The command responded with the following message: “This is the health check” which means our health check is running correctly as indicated below.
+
+sudo curl http://localhost:4000/health  
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/381d1e19-1d88-4569-ac94-d833cb2e74d7)
+
+Next, let’s test our database connection. We can do that by hitting the following endpoint locally:
+
+curl http://localhost:4000/transaction
+
+Received the following response after executing the command:
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/fc285e19-8f23-4716-999a-4155e4963ef2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+
+
+
 
 
 
