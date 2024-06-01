@@ -572,6 +572,144 @@ In this section, we will deploy an EC2 instance for the web tier and make all ne
 Connect to Instance
 Let’s follow the same steps we used to connect to the first app instance and change the user to ec2-user. Test connectivity here via ping as well since this instance should have internet connectivity:
 
+- Note- Make sure add inbound rule ssh port  in instance security group
+ ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/406d0cfb-aad8-4674-a2ae-fe86677cc845)
+
+- use comand to go in /bin - cd /bin
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/a7f6fa42-4ea0-4a5d-83cd-03d07c96aa12)
+
+
+# Configure Web Instance
+We now need to install all of the necessary components needed to run our front-end application. Let’s start by installing NVM and node on the instance
+
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+source ~/.bashrc
+nvm install 16
+nvm use 16
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/87b811fd-fb8b-4c4d-821a-ea7f9579280d)
+
+
+- Now we need to download our web tier code from our s3 bucket:
+
+cd ~/
+aws s3 cp s3://BUCKET_NAME/web-tier/ web-tier --recursive
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/d3c71949-1972-4514-a428-4fba252a9f06)
+
+
+- Navigate to the web-layer folder and create the build folder for the react app so we can serve our code using the below commands:
+
+cd ~/web-tier
+npm install (Its takea a time to install)
+npm run build
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/112f5553-8edd-4c7c-af3e-23dd3df1f6a7)
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/0883b948-2f6c-4f3d-aefe-7cb223243664)
+
+- NGINX can be used for different use cases like load balancing, content caching etc, but we will be using it as a web server that we will configure to serve our application on port 80, as well as help direct our API calls to the internal load balancer. Let’s run the below command to proceed
+
+sudo amazon-linux-extras install nginx1 -y
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/620d9ee0-b651-4209-a78b-42ab1b6f7a4d)
+
+
+
+- We will now have to configure NGINX. Navigate to the Nginx configuration file with the following commands and list the files in the directory:
+
+cd /etc/nginx
+ls
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/b3f4b351-bb83-44a5-8844-9c0dcb4f853f)
+
+
+- Let’s update the ‘nginx.conf’ file with the one we uploaded to S3 bucket. We’ll remove the file and replace the bucket name below:
+
+sudo rm nginx.conf
+- Now download nginx.congf in our terminal, file is in s3 bucket.
+sudo aws s3 cp s3://BUCKET_NAME/nginx.conf.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/5b55f12b-8641-499a-840c-f1966da844dd)
+
+- Now we download nginx.conf. from s3 bucket - check using command
+- ls
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/c2f78b13-dbb7-4c22-b493-4b510dc85050)
+
+  - Now use ommand sudo vi nginx.cong
+  - repalce load balancer DNS in file
+    ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/4158b219-69fc-4f8c-9d69-a543c2033168)
+
+- Let’s restart Nginx with the following command:
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/0cc63c62-c238-40aa-a4eb-b3803c495da3)
+
+- Let’s make sure Nginx has permission to access our files by executing the command:
+- And to make ensure the service starts on boot, run this command:
+
+  chmod -R 755 /home/ec2-user
+  sudo chkconfig nginx on
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/36aa3745-fcb2-43a1-b70e-a78b68c89f64)
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
