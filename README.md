@@ -499,6 +499,100 @@ Set the correct security group for our app tier, and then under Advanced details
 ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/b0d77613-712e-48b4-8fac-559c84a79ff0)
 
 
+# Auto Scaling :
+
+We will now create the Auto Scaling Group for our app instances. On the left-hand side of the EC2 dashboard, navigate to Auto Scaling Groups under Auto Scaling and click Create Auto Scaling Group.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/98c24618-dc40-4c93-b6a9-3c57a404b49a)
+
+
+Let’s give our Auto Scaling group a name, and then select the Launch Template we just created and click Next.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/5cf3d704-6923-4d4b-8c2b-81d42dc320bd)
+
+Next, we’re going to select on the Choose instance launch options page, set our VPC, and the private instance subnets for the app tier, and continue.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/12b52f6b-e319-4848-a942-c13495eeba25)
+
+
+For this next step, we’ll attach this Auto Scaling Group to the Load Balancer we just created by selecting the existing load balancer’s target group from the dropdown. Then, click next.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/54d1852c-fc72-455a-be81-3b1d53a3f4b5)
+
+We’re going to set the desired, minimum, and maximum capacity of our Auto Scaling Group size and Scaling policies. Review and then Create Auto Scaling Group.
+
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/9a0a680c-6d6d-4016-a888-568a7742b8c0)
+
+- click on next and click om create Auto scalling Group
+
+
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/aa68bebd-ac79-4fd5-a33e-9592ee84155c)
+
+
+
+- Now check Your Auto scaliing Instances create or not
+- Two instance has been created
+  
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/fb51876a-f9bf-480d-9f42-c9631e852ded)
+
+
+Step-9 
+
+- Web Tier Instance Deployment
+In this section, we will deploy an EC2 instance for the web tier and make all necessary software configurations for the NGINX web server and React.js website.
+
+- Objectives
+- Update NGINX Configuration Files
+- Create a Web Tier Instance
+- Configure Software Stack
+
+- Now create a New Instance for web-tier
+  Back on the EC2 dashboard, select Instances on the left-hand side under Instances, and click on Launch instances.
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/515989a9-6c35-4472-a94f-79593f0ca881)
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/47892b64-eedd-4339-b972-b53be6cf50ea)
+
+
+  We’ll proceed without a key pair for this instance.
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/628d63bf-c0ee-47ca-a201-a99a04caa680)
+
+  - Click on Launch Instance
+    ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/b2903010-764c-4f2c-800c-1f72999055d1)
+
+
+- Let’s head back to the EC2 dashboard now that we’ve the Web Tier instance creation in process. Select the instance and click Actions | Security | Modify IAM role. Select the (ec2-three-tier-access-role) from the IAM role dropdown list and Update IAM role to update the instance.
+
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/875310b5-16c8-42ba-b536-825bdb0aa5af)
+
+
+Connect to Instance
+Let’s follow the same steps we used to connect to the first app instance and change the user to ec2-user. Test connectivity here via ping as well since this instance should have internet connectivity:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
