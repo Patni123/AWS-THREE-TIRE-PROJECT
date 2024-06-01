@@ -1,5 +1,5 @@
-# AWS-THRRE-TIRE-PROJECT
-project Three Tire Architecture using AWS services.
+# AWS-THREE-TIER-PROJECT
+project Three Tier Architecture using AWS services.
 
 Step 1: Download Github project in your loacal machine  using below link 
 https://github.com/aws-samples/aws-three-tier-web-architecture-workshop.git
