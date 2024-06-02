@@ -17,7 +17,7 @@ Step 2 :
 
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/33f37687-01cb-43a7-b676-6751ccc16f17)
 
-  SETP 3:  create the S3 bucket.
+SETP 3:  create the S3 bucket
   S3 Bucket Nam3- aws-Three-Tire
 
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/3f37d186-e591-49a7-8501-8e0199443574)
