@@ -18,12 +18,13 @@ Step 2 :
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/33f37687-01cb-43a7-b676-6751ccc16f17)
 
 SETP 3:  create the S3 bucket
-  S3 Bucket Nam3- aws-Three-Tire
+  
+  S3 Bucket Name- aws-Three-Tire
 
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/3f37d186-e591-49a7-8501-8e0199443574)
 
 
-  Step 4:  -	Now Networking and security
+Step 4:  -	Now Networking and security
 -	VPC
 -	Subnets
 -	Route Tables
@@ -128,7 +129,7 @@ Step 5: Security Groups
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/c29b160b-9038-4b67-a1f3-26d43cb11c28)
 
 
-  Step 6:  Database Deployment
+Step 6:  Database Deployment
   This section of the workshop will walk us through deploying the database layer of the three-tier architecture.
 
   Objectives:
@@ -538,7 +539,7 @@ We’re going to set the desired, minimum, and maximum capacity of our Auto Scal
 ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/fb51876a-f9bf-480d-9f42-c9631e852ded)
 
 
-Step-9 
+# Step-9 
 
 - Web Tier Instance Deployment
 In this section, we will deploy an EC2 instance for the web tier and make all necessary software configurations for the NGINX web server and React.js website.
@@ -656,7 +657,7 @@ sudo aws s3 cp s3://BUCKET_NAME/nginx.conf.
 
 
 
-- Step 10- Now let’s copy and plug in the public IP of our web tier instance to see our website. The public IP can be found on the App Tier Instance details page on the EC2 dashboard. Voila, the website is working correctly.
+# Step 10- Now let’s copy and plug in the public IP of our web tier instance to see our website. The public IP can be found on the App Tier Instance details page on the EC2 dashboard. Voila, the website is working correctly.
 
 
 ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/aa1bafee-6906-45fd-a868-04845fd83a93)
@@ -666,9 +667,21 @@ sudo aws s3 cp s3://BUCKET_NAME/nginx.conf.
 
 Now add some entry 
 
-![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/bfe6facd-bded-4249-83ac-ed9cdbe501e7)
+![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/0798d93f-cf04-4010-ac90-54bfd7f007d8)
 
-- now check 
+
+
+- Now check your data is save in databse or not
+- Connect to your private instance/ app tier instance to check database
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/1d87731a-bfdf-4c4a-addb-49d28b4ea98e)
+
+  ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/878dc545-964b-488f-a687-86d73259463f)
+
+
+  
+  
+
 
 
 
