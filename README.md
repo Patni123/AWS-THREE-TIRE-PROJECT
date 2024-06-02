@@ -9,7 +9,7 @@ https://github.com/aws-samples/aws-three-tier-web-architecture-workshop.git
 ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/3e692c04-9856-4762-bf6d-7d88f974eb33)
 
 
-Step 2 :
+# Step 2 :
 - Create a IAM Role  AWS-THREE-TIRE-ROLE add permession
 - AmazonSSMManagedInstanceCore
 - AmazonS3ReadOnlyAccess
@@ -17,14 +17,14 @@ Step 2 :
 
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/33f37687-01cb-43a7-b676-6751ccc16f17)
 
-SETP 3:  create the S3 bucket
+# SETP 3:  create the S3 bucket
   
   S3 Bucket Name- aws-Three-Tire
 
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/3f37d186-e591-49a7-8501-8e0199443574)
 
 
-Step 4:  -	Now Networking and security
+# Step 4:  -	Now Networking and security
 -	VPC
 -	Subnets
 -	Route Tables
@@ -105,7 +105,7 @@ Now Open Private_TABLE -1a and ADD Routes select Nat-getway- AZ-1a and Subnet As
 
 
 
-Step 5: Security Groups
+# Step 5: Security Groups
 
 - Here the first security group we’ll create is for the public, internet-facing load balancer. After typing a name and description, let’s add an inbound rule to allow HTTP type traffic for our IP. See below!
 
@@ -129,7 +129,7 @@ Step 5: Security Groups
   ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/c29b160b-9038-4b67-a1f3-26d43cb11c28)
 
 
-Step 6:  Database Deployment
+# Step 6:  Database Deployment
   This section of the workshop will walk us through deploying the database layer of the three-tier architecture.
 
   Objectives:
@@ -179,7 +179,7 @@ We’ll not make any changes under password authentication because password auth
 ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/394d2fc7-2b40-4266-84fc-1a3297b26da1)
 
 
-Step 7 :  App Tier Instance Deployment
+# Step 7 :  App Tier Instance Deployment
 
 In this section, we are going to create an EC2 instance for our app layer and make all the essential software configurations so that the app can run correctly. The app layer will consist of a Node.js application running on port 4000. In addition, we will configure our database with some data and tables.
 
