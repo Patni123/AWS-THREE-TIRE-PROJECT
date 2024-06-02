@@ -42,7 +42,7 @@ https://github.com/aws-samples/aws-three-tier-web-architecture-workshop.git
 
 ![image](https://github.com/Patni123/AWS-THRRE-TIRE-PROJECT/assets/46121108/902b09e8-6062-4adc-be63-7163d1f29b50)
 
-# Subnet Creation:  After creating the VPC, click Subnets on the left side of the dashboard and then click on Create Subnet to create the Subnets.
+- Subnet Creation:  After creating the VPC, click Subnets on the left side of the dashboard and then click on Create Subnet to create the Subnets.
 
 We will need 6 subnets across two availability zones. This means that three subnets will be in one availability zone and the other three in a second availability zone.
 
